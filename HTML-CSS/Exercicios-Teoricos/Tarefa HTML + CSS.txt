@@ -1,0 +1,58 @@
+
+1. O que são tags semânticas? Por que devemos utilizá-las? Dê exemplos de tags semânticas.
+
+São tags que possuem em seu nome a sua função principal, são utilizadas para deixar o codigo mais coeso e facil de entender, considerado assim, uma boa pratica. Como exemplo temos a tag <main> que significa “principal” em ingles e tem como finalidade armazenar o conteudo principal do texto, outra tag semantica é a <section> (signifaco de “seção” em ingles) que é usada para criar uma seção no codigo.
+
+2. O que são elementos inline? Dê exemplos.
+
+Elementos inline são aqueles que só ocupam o espaço do seu conteudo, são exemplos as tags: <img>, <a>, <span>, <video>. Com o CSS é possivel transformar um texto em uma tag block-level em inline, basta utilizar o display: inline.
+
+3. O que são elementos block level? Dê exemplos.
+
+São elementos que ocupam todo espaço da linha, mesmo se seu texto não ocupe todo a linha. São exemplos as tags: <h1>, <h2>, <div>, <p>. Com o CSS é possivel transformar um texto em uma tag nativamente inline em block-level, basta utilizar o display: block.
+
+4. Descreva a utilização do atributo ‘alt’ em imagens no HTML e por que é importante utilizar esse atributo.
+
+O atributo alt=”” define um texto que aparecera caso a imagem não possa ser mostrada. É um atributo muito importante em aspectos de acessibilidade e de organização, já que caso algo aconteça com a imagem e ela não possa ser carregada, o atributo alt, com um texto descritivo da imagem, ira informar qual era a imagem que tinha que ser carregada.
+
+5. Explique o conceito de herança em CSS. Dê exemplo utilizando a propriedade ‘color’.
+
+O HTML permiti que tags possam ficar “dentro” de outra tag (como boa pratica, deve estar devidamente indentada). Sendo assim, a tag que estiver dentro de outra será a tag filho da que esta acima dela, a tag pai. Ex.:
+
+<body>
+	<main>
+	</main>
+</body>
+
+No exemplo, a tag <body> é pai da tag <main> ou também pode ser dito que a tag <main> é filho da tag <body>
+No CSS, as tags filho herdam as propriedades que são definidas na tag pai, contando que a tag filho não tenha a mesma propiedade com um valor diferente. Cosiderando o exemplo de cima no CSS:
+
+Body {
+	Color: red
+}
+
+Nesse caso, todo o texto escrito dentro da tag <body> será pintado de vermelho. Como a tag <main> esta dentro da tag <body>, a propriedade color:red é herdada para todo texto escrito dentro da tag <main>. Agora, caso no CSS tambem esteja escrito:
+
+Main {
+	Color: green
+}
+
+Já nesse caso, os texto escritos dentro da tag <main> não serão pintadas de vermelho, serão pintadas de verde, isso porque a propriedade color recebe outro valor para a tag <main>, sendo assim, nesse caso a propriedade color não é herdada para a tag <main>.
+
+6. Explique o que é BEM (Block Element Modifier)
+
+A metodologia BEM é uma boa prática na nomeclatura de classes no HTML e CSS. Sua base é: Block__element--modifier
+Sendo (em geral):
+Block -> Elemento Pai
+Element -> Elemento Filho
+Modifier -> Parte do código que pode ser reutilizado, uma modificação do element
+
+7. Explique e dê exemplos a diferença entre medidas absolutas e relativas
+
+Medidas absolutas são aquelas que não dependem de outro valor para serem utilizadas, portanto ela nunca mudam, 1px sempre sera 1px. Como exemplos na programação temos Pixel(px), Points (pt), Centimetro (cm), Milimetro (mm), Paica(pc), Inche / polegadas (in / pol).
+Ja as medidas relativas são aquelas que se baiseiam em um valor ja definido, por exemplo, o valor de 1% ira mudar dependendo do tamanho do container. Alguns exemplos de medidas relativas no campo da programação são: Ems (em), Rems (rem, "root em"), Porcentagem (%), Ex (ex), Ch (ch), Vw (vw, “viewport width”), Vh (vh, “viewport height”), Vmin ou vm (viewport minimun), Vmax (viewport maximum).
+
+8. Explique o que é a unidade de medida Vw (viewport width) e Vh (viewport height) e a diferença entre elas.
+
+O viewport é definido com o tamanho da tela, sendo assim, a medida vw (viewport width -> “largura” em inglês) é a largura da tela e a vh (viewport height -> “altura” em inglês) é a altura da tela. Por exemplo, se temos uma tela de 1000px de largura, o valor de 1vw = 1% de 1000px = 100px.
+

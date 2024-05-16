@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@300..700&display=swap');
+@font-face {
+    font-family: "comic-sans";
+    src: url("Prova1-Imagens/comic-sans.ttf");
+}
+
+* {
+    font-family: "comic-sans", sans-serif;
+}
+
+header {
+    margin: 2%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: dashed;
+}
+
+.header__logo {
+    width: 15%;
+}
+
+.redirecionamentos {
+    font-size: 30px;
+    margin-right: 5%;
+    text-decoration: none;
+}
+
+body {
+    margin: 0%
+}
+
+.main__titulo {
+    font-size: 50px;
+    font-family: "Signika", sans-serif;
+    text-align: center;
+}
+
+.main__titulo--subtitulo {
+    font-size: 30px;
+}
+
+.forte {
+    font-family: "Signika", sans-serif;
+    color: rgb(53, 13, 105);
+}
+
+.main__ceu {
+    width: 100%;
+}
+
+.texto {
+    margin: 1.5%;
+    font-size: 30px;
+    line-height: 1.5;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    text-align: justify;
+}
+
+.datas {
+    display: flex;
+    justify-content: space-between;
+    margin: 4%;
+    margin-top: 0%;
+}
+
+.datas__container {
+    width: 25%;
+    border: solid black 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.datas__container__titulo {
+    font-family: "Signika", sans-serif;
+    text-align: center;
+    font-size: 30px;
+    margin: 2%;
+}
+
+.datas__container__texto {
+    margin: 2% 5%;
+    font-size: 20px;
+    text-align: justify;
+}
+
+.datas__container__texto2 {
+    margin: 2% 5%;
+    font-size: 30px;
+    text-align: center;
+    border: 5px solid black;
+    border-radius: 30px;
+    color: white;
+}
+
+.datas__container__texto2--1 {
+    background-image: url("Prova1-Imagens/fundo1.png");
+}
+
+.datas__container__texto2--2 {
+    background-image: url("Prova1-Imagens/fundo2.jpg");
+}
+
+.datas__container__texto2--3 {
+    background-image: url("Prova1-Imagens/fundo3.jpg");
+}
