@@ -1,59 +1,129 @@
 <?php
 
 $estoque = [
-    1 => ["Nome" => "Polo", "Tamanho" => "P", "Cor" => "Amarelo", "Quantidade" => "33"], 
-    2 => ["Nome" => "Polo 2", "Tamanho" => "M", "Cor" => "Azul", "Quantidade" => "22"]
+    [
+    'sku' => 'GRA-001',
+    'nome' => 'Arroz 5kg',
+    'unidade_medida' => '5kg',
+    'quantidade' => 50,
+    'preco' => 37.95
+    ],
+    [
+    'sku' => 'GRA-002',
+    'nome' => 'Feijão Preto 1kg',
+    'unidade_medida' => '1kg',
+    'quantidade' => 30,
+    'preco' => 8.99
+    ],
+    [
+    'sku' => 'MAS-003',
+    'nome' => 'Macarrão Espaguete 500g',
+    'unidade_medida' => '500g',
+    'quantidade' => 100,
+    'preco' => 9.99
+    ],
+    [
+    'sku' => 'MAN-004',
+    'nome' => 'Óleo De Soja 900ml',
+    'unidade_medida' => '900ml',
+    'quantidade' => 60,
+    'preco' => 6.98
+    ],
+    [
+    'sku' => 'GRA-005',
+    'nome' => 'Açúcar Refinado 1kg',
+    'unidade_medida' => '1kg',
+    'quantidade' => 80,
+    'preco' => 4.98
+    ],
+    [
+    'sku' => 'GRA-006',
+    'nome' => 'Sal Refinado 1kg',
+    'unidade_medida' => '1kg',
+    'quantidade' => 40,
+    'preco' => 4.5
+    ],
+    [
+    'sku' => 'GRA-007',
+    'nome' => 'Café Torrado E Moído 500g',
+    'unidade_medida' => '500g',
+    'quantidade' => 20,
+    'preco' => 16.98
+    ],
+    [
+    'sku' => 'BEB-008',
+    'nome' => 'Leite UHT Integral 1L',
+    'unidade_medida' => '1L',
+    'quantidade' => 70,
+    'preco' => 6.99
+    ],
+    [
+    'sku' => 'GRA-009',
+    'nome' => 'Farinha De Trigo 1kg',
+    'unidade_medida' => '1kg',
+    'quantidade' => 90,
+    'preco' => 5.45
+    ],
+    [
+    'sku' => 'PRO-010',
+    'nome' => 'Molho De Tomate',
+    'unidade_medida' => '340g',
+    'quantidade' => 50,
+    'preco' => 3.99
+    ]
 ];
 
-
-// Função que verifica o codigo escolhido pelo usuario
-function verifica_key(array $estoque, &$codigo) 
+// Função que verifica o codigo SKU escolhido pelo usuario
+function verifica_key(array $estoque, &$sku) 
 {
-    // O loop percorre o estoque, pegando o codigo de cada produto 
-    foreach ($estoque as $key => $array) {
-        // Se o codigo do usuario for igual ao codigo do produto, a função pede outro codigo
-        if ($codigo == $key) {
-            $codigo = readline("O codigo $codigo ja existe !!!, insira outro: ");
+
+    foreach ($estoque as $array) {
+        // Se o codigo do usuario for igual ao codigo SKU do produto, a função pede outro codigo SKU
+        if ($sku == $array["sku"]) {
+            $sku = readline("O codigo SKU $sku ja existe !!!, insira outro: ");
             // Caso o usuario escreva outro codigo ja existente, a função é chamada novamente
-            verifica_key($estoque, $codigo);
+            verifica_key($estoque, $sku);
         }
     }
 }
 
 // Função que adiciona produtos (1)
-function adicionarProduto(&$estoque, $codigo, $nome, $tamanho, $cor, $quantidade) 
+function adicionarProduto(&$estoque, $sku, $nome, $unidade_medida, $quantidade, $preco) 
 {
 
-    // Função que verifica se o codigo escrito pelo usuario ja existe, ele só sai da função com um codigo possivel
-    verifica_key($estoque, $codigo);
+    // Função que verifica se o codigo SKU escrito pelo usuario ja existe, ele só sai da função com um codigo SKU possivel
+    verifica_key($estoque, $sku);
 
     // Adiciona o produto no estoque
-    $estoque["$codigo"] = [
+    $estoque[] = [
         // O ucwords só padroniza para Title Case
-        "Nome" => ucwords($nome),
-        "Tamanho" => ucwords($tamanho),
-        "Cor" => ucwords($cor),
-        "Quantidade" => $quantidade
+        "sku" => ucwords($sku),
+        "nome" => ucwords($nome),
+        "unidade_medida" => $unidade_medida,
+        "quantidade" => $quantidade,
+        "preco" => $preco
     ]; 
 }
 
 // Função que vende algum item (2)
-function vende_item(array &$estoque, $codigo, $quantidade)
+function vende_item(array &$estoque, $codigo, $sku)
 {
     while (true) {
-        $produto = $estoque[$codigo]["Nome"];
-        $quantidade_velha = $estoque[$codigo]["Quantidade"];
-        
+
+        $quantidade = readline("Quantidade de {$estoque[$codigo]["nome"]} que voce vendeu: ");
+
+        $produto = $estoque[$codigo]["nome"];
+        $quantidade_velha = $estoque[$codigo]["quantidade"];
+
         // Para o caso do estoque ser esgotado
         if ($quantidade_velha - $quantidade == 0) {
             unset($estoque[$codigo]);
             echo "..." . PHP_EOL;            
             echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" . PHP_EOL;
-            echo "O produto " . $produto . ", de codigo " . $codigo . " foi esgotado, portanto foi removido do estoque" . PHP_EOL;
+            echo "O produto " . $produto . ", de codigo SKU " . $sku . " foi esgotado, portanto foi removido do estoque" . PHP_EOL;
             echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" . PHP_EOL;
             break;
         }
-
         // Quantidades negativas não existem
         elseif ($quantidade_velha - $quantidade < 0) {
             echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" . PHP_EOL;
@@ -68,19 +138,17 @@ function vende_item(array &$estoque, $codigo, $quantidade)
             echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" . PHP_EOL;
             echo "O estoque do $produto foi atualizada de $quantidade_velha para " . $quantidade_velha - $quantidade . PHP_EOL;
             echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" . PHP_EOL;
-            $estoque[$codigo]["Quantidade"] = $quantidade_velha - $quantidade;
+            $estoque[$codigo]["quantidade"] = $quantidade_velha - $quantidade;
             break;
         }
     }
 }
 
-function lista_item_especifico ($chave, $array) 
+function lista_item_especifico ($array) 
 {
-    echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" . PHP_EOL;  
-    
-    echo $chave . " -> ";                
+    echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" . PHP_EOL;         
 
-    // Percorre o estoque inteiro, e imprimi o codigo de cada produto
+    // Percorre o estoque inteiro, e imprimi as informações de cada produto
     foreach ($array as $key => $item) {
             echo $key . ": " . $item . " | ";
         }         
@@ -100,12 +168,12 @@ function verifica_estoque (array $estoque, $escolha)
         $nome = ucwords(readline("Otimo!, qual é o nome do produto?: "));
 
         // Loop que percorre o estoque inteiro, comparando o nome informado pelo usuario com o nome dos produtos
-        foreach ($estoque as $chave => $array) {
-            if ($nome == $array["Nome"]) {
+        foreach ($estoque as $array) {
+            if ($nome == $array["nome"]) {
                 echo "O produto $nome consta no estoque!. Informações sobre: " . PHP_EOL;
 
-                // Função papra listar as informações do produto
-                lista_item_especifico($chave, $array);
+                // Função para listar as informações do produto
+                lista_item_especifico($array);
 
                 $existe = true;
             }
@@ -114,15 +182,15 @@ function verifica_estoque (array $estoque, $escolha)
             echo "$nome não consta no estoque!!!";
         }
     }
-    // O else funciona de forma parecida, mas agora com o codigo do produto
+    // O else funciona de forma parecida, mas agora com o codigo SKU do produto
     else {
-        $codigo = readline("Otimo!, qual é o codigo do produto?: ");
+        $sku = readline("Otimo!, qual é o codigo SKU do produto?: ");
     
-        foreach ($estoque as $key => $array) {
-            if ($codigo == $key) {
-                echo "O produto {$estoque[$codigo]["Nome"]} de codigo $codigo consta no estoque!. Informações sobre: " . PHP_EOL;
+        foreach ($estoque as $array) {
+            if ($sku == $array["sku"]) {
+                echo "O produto {$array["nome"]} de codigo SKU {$array["sku"]} consta no estoque!. Informações sobre: " . PHP_EOL;
     
-                lista_item_especifico($key, $array);
+                lista_item_especifico($array);
 
                 $existe = true;   
 
@@ -130,19 +198,28 @@ function verifica_estoque (array $estoque, $escolha)
         }
 
         if ($existe == false) {
-            echo "O produto de codigo $codigo não consta no estoque!!!";
+            echo "O produto de codigo SKU $sku não consta no estoque!!!";
         }
     }
 }
 
-
 // Função que lista os itens (4)
 function lista_itens (array &$estoque) 
 {
+
+    // Cria um array auxiliar, a key de cada elemento é seu nome e o valor é o array que o nome esta presente
+    $array_auxiliar = [];
+
+    foreach ($estoque as $array) {
+        $array_auxiliar[$array["nome"]] = $array;
+    }
+
+    // Organiza a lista em ordem alfabetica, considerando a key dos elementos
+    ksort($array_auxiliar);
+
     echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" . PHP_EOL;
-    // Percorre o estoque inteiro, e imprimi o codigo de cada produto
-    foreach ($estoque as $codigo => $array) {
-        echo $codigo . " -> ";
+    
+    foreach ($array_auxiliar as $array) {
         // Percorre o array de cada produto, imprimindo cada categoria e valor da categoria
         foreach ($array as $key => $item) {
             echo $key . ": " . $item . " | ";
@@ -176,27 +253,28 @@ while (true) {
 
     switch ($opcao) {
         case 1:
-            $codigo = readline("Digite o Código do produto: ");
+            $sku = readline("Digite o Código SKU do produto: ");
+            verifica_key($estoque, $sku);
             $nome = readline("Digite o Nome do produto: ");
-            $tamanho = readline("Digite o Tamanho: ");
-            $cor = readline("Digite a Cor: ");
+            $unidade_medida = readline("Digite a Unidade de Medida: ");
             $quantidade = readline("Digite a Quantidade: ");
-            adicionarProduto($estoque, $codigo, $nome, $tamanho, $cor, $quantidade);
+            $preco = readline("Digite o preço do produto: ");
+            adicionarProduto($estoque, $sku, $nome, $unidade_medida, $quantidade, $preco);
             break;
         case 2:
+            $sku = readline("Qual é o codigo SKU do produto que voce vendeu?: ");
 
-            $codigo = readline("Qual é o codigo do produto que voce vendeu?: ");
-            $quantidade = readline("Quantidade de {$estoque[$codigo]["Nome"]} voce vendeu: ");
-            
-            vende_item($estoque, $codigo, $quantidade);
+            $codigo = array_search($sku, array_column($estoque, "sku"));
+
+            vende_item($estoque, $codigo, $sku);
 
             break;
         case 3:
 
-            $escolha = readline("Gostaria de informar o nome ou codigo do produto? [N/C]: ");
+            $escolha = readline("Gostaria de informar o nome ou codigo SKU do produto? [N/C]: ");
 
-            while ($escolha != "n" || $escolha != "N" || $escolha != "c" || $escolha != "C") {
-                $escolha = readline("Gostaria de informar o nome ou codigo do produto? [N/C]: ");
+            while ($escolha != "n" && $escolha != "N" && $escolha != "c" && $escolha != "C") {
+                $escolha = readline("Gostaria de informar o nome ou codigo SKU do produto? [N/C]: ");
             }
 
             verifica_estoque($estoque, $escolha);
