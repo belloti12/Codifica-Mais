@@ -2,72 +2,77 @@
 
 class Carro
 {
-    private string $marca;
-    private string $modelo;
-    private int $ano_de_fabricacao;
-    public string $cor;
     private string $situacao;
-    private bool $seguro;
 
-    public function __construct($marca, $modelo, $ano_de_fabricacao, $cor, $situacao, $seguro) 
+    // Utilizando a promoção de propriedades no construtor
+    public function __construct(
+        private string $marca,
+        private string $modelo,
+        private int $ano_de_fabricacao,
+        private string $cor,
+        private bool $seguro,
+    ) 
     {
-        $this->marca = $marca;
-        $this->modelo = $modelo;
-        $this->ano_de_fabricacao = $ano_de_fabricacao;
-        $this->cor = $cor;
-        $this->situacao = $situacao;
-        $this->seguro = $seguro;
+        $this->situacao = "Normal";
     }
 
-    // Função que imprimi informações sobre o carro (objeto)
-    public function info()
+    // Função auxiliar para transformar o "vazio" em false e o "1" em true nos atributos booleanos, no caso dessa classe, o seguro 
+    private function boolean_visivel() : string 
     {
-        return <<<END
+        if ($this->seguro == 1) {
+            return "True";
+        }
+        return "False";
+    }
+
+    // Função que imprimi informações sobre o carro
+    public function informar() : void
+    {
+        $seguro = $this->boolean_visivel();
+        echo <<<END
         =-=-=-=-= Informações do Carro =-=-=-=-=
         Marca:              $this->marca
         Modelo:             $this->modelo
         Ano de Fabricação:  $this->ano_de_fabricacao
         Cor:                $this->cor
         Situação:           $this->situacao
-        Seguro:             $this->seguro
+        Seguro:             $seguro
         END;
     }
 
-    // Função da situação do carro caso ocorra uma batida
-    public function bateu()
+    // Função que atualiza a situação do carro para quebrado
+    public function bater() : void
     {
         $this->situacao = "Quebrado";
-        return "Seu carro quebrou. A situação do carro é " . $this->situacao;
+        echo "Seu carro quebrou. A situação do carro é " . $this->situacao;
     }
 
-    // Função do conserto do carro
-    public function conserto()
+    // Função do conserto do carro, se o seguro for true, ele executa o conserto, se for false, ela não faz nada
+    public function consertar() : void
     {
-        if ($this->seguro = true) {
+        if ($this->seguro == true) {
+            echo "Seu carro $this->situacao foi para a oficina mecânica. A situação do carro é Normal";
             $this->situacao = "Normal";
-            return "Seu carro quebrou, mas como voce TEM seguro do carro, ele foi na oficina mecanica. A situação do carro é " . $this->situacao;
+            return;
         }       
-        return "Seu carro NÃO tem seguro !, ele continua quebrado";
+        echo "Seu carro NÃO tem seguro !, ele continua " . $this->situacao;
     }
 
-    // Função que permite do usuario fazer um seguro.
-    public function fazer_seguro()
+    // Função que permite do usuário fazer um seguro.
+    public function fazer_seguro() : void
     {
-        if ($this->seguro = true) {
-            return "Voce ja tem um seguro!";
+        if ($this->seguro == true) {
+            echo "Você ja tem um seguro !";
+            return;
         }
         $this->seguro = true;
-        return "Voce fez o seguro do carro com sucesso !";
+        echo "Você fez o seguro do carro com sucesso !";
+    }
+
+    // Função que recebe a nova cor e troca o atributo "cor" do objeto
+    public function trocar_cor(string $cor) : void
+    {
+        echo "Seu carro era da cor $this->cor e foi pintado para a cor $cor.";
+        $this->cor = $cor;
     }
 }
-
-$carro = new Carro("a", "b", 1000, "c", "Normal", false);
-
-// var_dump($carro);
-
-echo $carro->info() . PHP_EOL;
-echo $carro->bateu() . PHP_EOL;
-
-echo $carro->conserto() . PHP_EOL;
-
-echo $carro->info() . PHP_EOL;
