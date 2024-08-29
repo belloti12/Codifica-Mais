@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Signika:wght@300..700&display=swap');
+
+:root {
+    --cor-principal: cadetblue;
+    --cor-secundaria: rgb(206, 204, 204);
+    --cor-secundaria--forte: rgb(128, 128, 128);
+}
+
+* {
+    margin: 0%;
+    padding: 0%;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #242831;
+    font-family: "Open Sans", sans-serif;
+    font-weight: bold;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    width: 40rem;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.main__section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 5%;
+    background-color: white;
+}
+
+.section__content {
+    padding-top: 3%;
+    padding-bottom: 3%;
+    display: flex;
+    gap: 1rem;
+    /* background-color: greenyellow; */
+}
+
+.content__img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 0.5rem;
+    border: solid black 1px;
+}
+
+.content__textos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* width: 100%; */
+    /* background-color: green; */
+}
+
+.content__textos--1 {
+    color: var(--cor-principal);
+}
+
+.content__textos--2 {
+    color: black;
+}
+
+.content__textos--3 {
+    color: var(--cor-secundaria--forte);
+}
+
+.section__barra {
+    height: 1rem;
+    background-color: var(--cor-secundaria);
+    border-radius: 5px;
+}
+
+.barra--progresso {
+    height: 1rem;
+    background-color: var(--cor-principal);
+    border-radius: 5px 0px 0px 5px;
+    width: 60%;
+}
+
+.section__time {
+    display: flex;
+    justify-content: space-between;
+    /* background-color: pink; */
+}
+
+.time__texto--inicio {
+    color: var(--cor-principal);
+}
+
+.time__texto--fim {
+    color: var(--cor-secundaria);
+}
+
+.main__player {
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--cor-secundaria--forte);
+    padding: 2%;
+}
