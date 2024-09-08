@@ -18,15 +18,9 @@
 }
 
 body {
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
-    /* height: 100vh; */
     width: 100vw;
     box-sizing: border-box;
-    /* background-color: #D2BC8B; */
     background-color: #857658;
-    /* font-family: "Roboto Mono", monospace; */
     overflow-x: hidden;
 }
 
@@ -45,10 +39,8 @@ nav a {
 .main {
     display: flex;
     flex-direction: column;
-    /* width: 30rem; */
     width: 50%;
     height: auto;
-    /* background-color: #AD9B72; */
     background-color: #AD9B72;
     gap: 1rem;
     border: solid black 1px;
@@ -62,7 +54,6 @@ nav a {
 .main__funcoes {
     display: flex;
     justify-content: space-between;
-    /* background-color: green; */
 }
 
 .funcoes__buscar {
@@ -71,7 +62,6 @@ nav a {
     justify-content: flex-end;
     width: 50%;
     height: auto;
-    /* background-color: chartreuse; */
 }
 
 .buscar__texto {
@@ -117,7 +107,6 @@ a {
     padding: 1rem;
     box-sizing: border-box;
     border-radius: 15px;
-    /* background-color: #857658; */
     background-color: #D2BC8B;
     gap: 1rem;
 }
@@ -168,7 +157,6 @@ a {
     border: solid black 1px;
     border-radius: 5px;
     word-wrap: break-word;
-    /* font-family: "Roboto Mono", monospace; */
 }
 
 .botao:hover {
@@ -187,8 +175,14 @@ a {
 
 .funcoes__deletar{
     width: 20%;
-    padding: 1%;
     background-color: #80B367;
+}
+
+.funcoes__botao {
+    border: none;
+    background: none;
+    padding: 5%;
+    width: 100%;
 }
 
 .main__form {
@@ -199,7 +193,6 @@ a {
 
 .form__colunas {
     display: flex;
-    justify-content: space-between;
     gap: 1rem;
 }   
 
@@ -215,17 +208,3 @@ a {
     flex-direction: column;
     height: 3rem;
 }
-
-
-
-/* @media (max-width:600px) {
-    .item__dados, .form__colunas {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: flex-start;
-    }
-
-    .botao {
-        width: auto;
-    }
-} */

@@ -1,17 +1,16 @@
+
 <?php
 
-session_start();
-
-// Vai sair com MySQL
+// Vai sair com o SQL
 $_SESSION['produtos'] = [
-    [
+    1 => [
         'id' => 1,
-        'nome' => 'Smartphone',
+        'nome' => 'Camisa CODIFICA+',
         'sku' => '123456',
         'unidade_medida_id' => '1',
         'valor' => 1500.00,
-        'quantidade' => 10,
-        'categoria_id' => '1',
+        'quantidade' => 1,
+        'categoria_id' => '5',
     ],
     [
         'id' => 2,
