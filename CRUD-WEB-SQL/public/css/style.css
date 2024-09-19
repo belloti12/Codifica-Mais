@@ -17,6 +17,12 @@
     width: 18px;
 }
 
+/* Para a configuração */
+/* Junto de poder trocar as cores das categorias */
+/* html {
+    font-size: 170%;
+} */
+
 body {
     width: 100vw;
     box-sizing: border-box;

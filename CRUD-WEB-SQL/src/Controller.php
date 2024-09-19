@@ -1,9 +1,17 @@
 <?php 
 
 namespace App;
+use PDO;
 
 class Controller 
 {
+    private PDO $PDO;
+
+    public function __construct(PDO $pdo)
+    {
+        $this->PDO = $pdo;
+    }
+
     // Método que vai pra pagina de listagem listar os produtos
     public function listar() : void
     {
@@ -34,7 +42,7 @@ class Controller
         // Pega o produto do ID que será atualizado
         # Trocar por um SELECT com WHERE
         $produto = $_SESSION['produtos'][$id];
-    
+
         // Vai sair com o SQL
         $categoria = match ($produto['categoria_id']) {
             '1' => ['Eletrônicos', '#f8f877'],
