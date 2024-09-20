@@ -24,59 +24,19 @@
         </div>
         <div class="main__lista">
             <?php
-                // Vai sair com o SQL
-                # IFs prevalecem, o foreach da busca passa a ser um WHERE
-                # A lista de produtos da SESSION passa a ser um SELECT (bem feito)
-
-                $lista = [];
-
                 // Se não houver produtos, não faz sentido uma busca, e é informado ao usuário que a lista está vazia
-                if (empty($_SESSION['produtos'])) {echo 'Lista vazia';}
-                // Caso o ID de busca exista na URL, então verificamos quais produtos contem o nome que o usuário informou na busca
-                elseif (array_key_exists('id-busca', $_GET)) {
-                    // O foreach faz essa busca em cada um dos items
-                    foreach ($_SESSION['produtos'] as $produto) {
-                        if (str_contains(mb_strtolower($produto['nome']), mb_strtolower($_GET['id-busca']))) {
-                            $lista[] = $produto;
-                        }
-                    }
-                }
-                // Se o ID de busca não existir então o usuário esta na página de listagem normal e todos os produtos são listados
-                else {
-                    $lista = $_SESSION['produtos'];
+                if (empty($produtos)) {
+                    echo 'Lista vazia';
                 }
 
-                foreach ($lista as $key => $produto):
-
-                // Vai sair com o SQL
-                $categoria = match ($produto['categoria_id']) {
-                    '1' => ['Eletrônicos', '#f8f877'],
-                    '2' => ['Eletrodomésticos', 'lightcoral'],
-                    '3' => ['Móveis', '#C4A484'],
-                    '4' => ['Decoração', 'lightgreen'],
-                    '5' => ['Vestuário', 'lightblue'],
-                    '6' => ['Outros', 'lightgrey']
-                };
-                
-                // Vai sair com o SQL
-                $unidade_de_medida = match ($produto['unidade_medida_id']) {
-                    '1' => 'Un',
-                    '2' => 'Kg',
-                    '3' => 'g',
-                    '4' => 'L',
-                    '5' => 'mm',
-                    '6' => 'cm',
-                    '7' => 'm',
-                    '8' => 'm²',
-                };
-
-                ?>
+                foreach ($produtos as $produto):
+            ?>
                 <section class="lista__item">
                     <div class="item__dados">
                         <div class="dados__esquerda"> 
                             <div class="esquerda__info">
                                 <span class="esquerda__id">#<?php echo sprintf('%05d', $produto['id'])?> </span>
-                                <span class="esquerda__categoria" style= <?= "background-color:" . $categoria[1] ?> > <?= $categoria[0] ?></span>
+                                <span class="esquerda__categoria" style= <?= "background-color:" . $produto['cor'] ?> > <?= $produto['categoria'] ?></span>
                             </div>
                             <span class="esquerda__nome"><?= "{$produto['nome']}" ?></span>
                         </div>

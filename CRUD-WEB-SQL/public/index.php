@@ -1,6 +1,4 @@
 <?php
-// session_start();
-// Inicia a sessão
 
 require_once __DIR__ . "/../vendor/autoload.php";
 require_once __DIR__ . "/../helper.php";
@@ -8,19 +6,8 @@ require_once __DIR__ . "/../helper.php";
 
 use App\{Controller, CriarPDO};
 
-// $pdo = CriarPDO::criarConexao();
-$pdo = new PDO('mysql:host=localhost;dbname=db_produtos','root',"belloti12");
-dd($pdo);
-
+$pdo = CriarPDO::criarConexao();
 $controlador = new Controller($pdo);
-
-
-$sttm = $pdo->query("SELECT * FROM tb_produtos");
-$array = $sttm->fetchAll();
-
-var_dump($array);
-
-exit();
 
 
 // Caso a URL não tenha caminho, o programa redireciona para o caminho padrão de /produtos
@@ -28,37 +15,6 @@ exit();
 if (!(array_key_exists("PATH_INFO", $_SERVER))) {
     header('location: /produtos');
 }  
-
-
-
-// Define o array de produtos na _SESSION
-if (empty($_SESSION)) {
-    require_once __DIR__ . '/../src/Views/array.php';
-}
-
-// Vai sair com o SQL
-// Define o array de categorias, unidades de medida
-$_SESSION['categorias'] = [
-    '1' => 'Eletrônicos',
-    '2' => 'Eletrodomésticos',
-    '3' => 'Móveis',
-    '4' => 'Decoração',
-    '5' => 'Vestuário',
-    '6' => 'Outros'
-];
-
-// Vai sair com o SQL
-$_SESSION['unidades_medidas'] = [
-    '1' => 'Un',
-    '2' => 'Kg',
-    '3' => 'g',
-    '4' => 'L',
-    '5' => 'mm',
-    '6' => 'cm',
-    '7' => 'm',
-    '8' => 'm²',
-];
-
 
 // Puxa o caminho da URL
 // O caminho não vai dar erro por conta do if lá do começo, o if do começo cuida do caso de não termos caminho na URL

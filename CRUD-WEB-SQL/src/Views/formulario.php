@@ -42,7 +42,7 @@
                     </div>
                     <div class="div">
                         <label for="">Categoria</label>
-                        <select name="categoria_id" id="categoria_id" style="background:<?= $editar ? $categoria[1] : ""?>">
+                        <select name="categoria_id" id="categoria_id" style="background:<?= $editar ? $produto['cor'] : ""?>">
                             <option value="1" <?= $editar ? (($produto['categoria_id'] == '1') ? "selected" : '') : ""?>>Eletrônicos</option>
                             <option value="2" <?= $editar ? (($produto['categoria_id'] == '2') ? "selected" : '') : ""?>>Eletrodomésticos</option>
                             <option value="3" <?= $editar ? (($produto['categoria_id'] == '3') ? "selected" : '') : ""?>>Móveis</option>

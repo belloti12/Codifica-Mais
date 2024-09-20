@@ -1,4 +1,4 @@
-USE db_produtos;
+USE db_estoque;
 
 -- Populando tabela de categorias
 INSERT INTO tb_categorias (nome, cor) VALUES
@@ -21,7 +21,7 @@ INSERT INTO tb_unidades_medida (nome) VALUES
 ('m²');
 
 -- Populando tabela de Produtos
-INSERT INTO tb_produtos (nome, sku, id_unidade_medida, valor, quantidade, id_categoria) VALUES
+INSERT INTO tb_produtos (nome, sku, unidade_medida_id, valor, quantidade, categoria_id) VALUES
 ('Camisa CODIFICA+', '123456', 1, 123, 10, 1),
 ('Geladeira', '654321', 1, 2500.00, 5, 2),
 ('Televisão', '112233', 1, 1800.00, 7, 1),
@@ -52,4 +52,3 @@ INSERT INTO tb_produtos (nome, sku, id_unidade_medida, valor, quantidade, id_cat
 ('Gaveteiro', '556611', 1, 350.00, 7, 3),
 ('Estante', '331188', 1, 500.00, 5, 3),
 ('Roupão de Banho', '887722', 1, 180.00, 8, 5);
-

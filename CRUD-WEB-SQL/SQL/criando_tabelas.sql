@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS db_produtos;
+CREATE DATABASE IF NOT EXISTS db_estoque;
 
-USE db_produtos;
+USE db_estoque;
 
 -- Criando a tabela de categorias
 CREATE TABLE IF NOT EXISTS tb_categorias (
@@ -36,16 +36,16 @@ CREATE TABLE IF NOT EXISTS tb_produtos (
 	sku VARCHAR(16) NOT NULL,
     nome VARCHAR(100) NOT NULL, 
     valor DECIMAL(9, 2) NOT NULL,
-    id_categoria BIGINT NOT NULL,
+    categoria_id BIGINT NOT NULL,
 	quantidade BIGINT NOT NULL,
-    id_unidade_medida BIGINT NOT NULL,
+    unidade_medida_id BIGINT NOT NULL,
     created_at	TIMESTAMP DEFAULT current_timestamp,
 	updated_at	TIMESTAMP DEFAULT current_timestamp ON UPDATE current_timestamp,
 	deleted_at	TIMESTAMP NULL DEFAULT NULL,
-    FOREIGN KEY (id_categoria) REFERENCES tb_categorias (id),
-    FOREIGN KEY (id_unidade_medida) REFERENCES tb_unidades_medida (id)
+    FOREIGN KEY (categoria_id) REFERENCES tb_categorias (id),
+    FOREIGN KEY (unidade_medida_id) REFERENCES tb_unidades_medida (id)
 );
 
 -- Criando indexes nas colunas de categoria e unidade de medida para melhor desempenho
-CREATE INDEX idx_produtos_categoria ON tb_produtos(id_categoria);
-CREATE INDEX idx_produtos_unidade_medida ON tb_produtos(id_unidade_medida);
+CREATE INDEX idx_produtos_categoria ON tb_produtos(categoria_id);
+CREATE INDEX idx_produtos_unidade_medida ON tb_produtos(unidade_medida_id);

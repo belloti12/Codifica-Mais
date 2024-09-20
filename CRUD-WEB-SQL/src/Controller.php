@@ -5,16 +5,28 @@ use PDO;
 
 class Controller 
 {
-    private PDO $PDO;
+    private PDO $pdo;
 
     public function __construct(PDO $pdo)
     {
-        $this->PDO = $pdo;
+        $this->pdo = $pdo;
     }
 
     // Método que vai pra pagina de listagem listar os produtos
     public function listar() : void
     {
+        $sql = "SELECT a.id, a.sku, a.nome, a.valor, b.nome as categoria, b.cor, a.quantidade, c.nome as unidade_medida FROM tb_produtos a 
+        INNER JOIN tb_categorias b ON a.categoria_id = b.id 
+        INNER JOIN tb_unidades_medida c ON a.unidade_medida_id = c.id
+        ORDER BY a.id;";
+        $produtos = $this->pdo->query($sql);
+        $produtos = $produtos->fetchAll(PDO::FETCH_ASSOC);        
+
+        // Caso o ID de busca exista na URL, então verificamos quais produtos contem o nome que o usuário informou na busca
+        if (isset($_GET['id-busca'])){
+            $produtos = self::buscar($_GET['id-busca']);
+        }
+
         require __DIR__ . "/Views/listagem.php";
     }
 
@@ -40,18 +52,10 @@ class Controller
         $editar = true;
         
         // Pega o produto do ID que será atualizado
-        # Trocar por um SELECT com WHERE
-        $produto = $_SESSION['produtos'][$id];
-
-        // Vai sair com o SQL
-        $categoria = match ($produto['categoria_id']) {
-            '1' => ['Eletrônicos', '#f8f877'],
-            '2' => ['Eletrodomésticos', 'lightcoral'],
-            '3' => ['Móveis', '#C4A484'],
-            '4' => ['Decoração', 'lightgreen'],
-            '5' => ['Vestuário', 'lightblue'],
-            '6' => ['Outros', 'lightgrey']
-        };
+        $sql = "SELECT a.id, a.sku, a.nome, a.valor, a.categoria_id, b.cor, a.quantidade, a.unidade_medida_id FROM tb_produtos a INNER JOIN tb_categorias b ON a.categoria_id = b.id WHERE a.id = $id;";        
+        $sttm = $this->pdo->query($sql);
+        $sttm->bindValue(':id', $id);
+        $produto = $sttm->fetch(PDO::FETCH_ASSOC);
 
         require __DIR__ . "/Views/formulario.php";
     }
@@ -59,16 +63,20 @@ class Controller
     // Salva o produto enviado da página de formulário (criar)
     public function salvar()  : void
     {
-        // Puxa o maior ID do array dos produtos, caso o array seja vazio (sem produtos) ele retorna 0
-        $maior_id = empty($_SESSION['produtos']) ? 0 : max(array_column($_SESSION['produtos'], 'id'));
-        $id = $maior_id + 1;
-
         // Coloca um array com o ID e chave 'id' no array recebido (o que possui os dados do formulário)
-        $dados = array_merge(['id' => (int) $id], $_POST);
-        $dados['quantidade'] = (int) ($dados['quantidade']);
+        // $dados = array_merge(['id' => (int) $id], $_POST);
+        // $dados['quantidade'] = (int) ($dados['quantidade']);
+        $dados = $_POST;
 
         // Adiciona os dados do novo produto
-        $_SESSION['produtos'][$id] = $dados;
+        $sql = "INSERT INTO tb_produtos (sku, nome, valor, categoria_id, quantidade, unidade_medida_id) VALUES (:sku, :nome, :valor, :categoria_id, :quantidade, :unidade_medida_id);";
+        $sttm = $this->pdo->prepare($sql);
+        $sttm->bindValue(":sku", $dados['sku']);
+        $sttm->bindValue(":nome", $dados['nome']);
+        $sttm->bindValue(":valor", $dados['valor']);
+        $sttm->bindValue(":categoria_id", $dados['categoria_id']);
+        $sttm->bindValue(":quantidade", $dados['quantidade']);
+        $sttm->bindValue(":unidade_medida_id", $dados['unidade_medida_id']);
 
         // Retorna para a página de listagem
         header('location: /');
@@ -106,11 +114,25 @@ class Controller
             return;
         }
 
-        unset($_SESSION['produtos'][$id]);
+        $sql = "DELETE FROM tb_produtos WHERE id = :id";
+        $sttm = $this->pdo->prepare($sql);
+        $sttm->bindValue(':id', $id);
+        $sttm->execute();
 
         // Redireciona o usuário para a URL que ele estava na página de listagem (para o caso de termos "buscas ativas")
         header("location: {$_POST['url']}");
-
-        #DELETE
     }
+
+    public function buscar($nome) 
+    {
+        $sql = "SELECT a.id, a.sku, a.nome, a.valor, b.nome as categoria, b.cor, a.quantidade, c.nome as unidade_medida 
+        FROM tb_produtos a 
+        INNER JOIN tb_categorias b ON a.categoria_id = b.id 
+        INNER JOIN tb_unidades_medida c ON a.unidade_medida_id = c.id
+        WHERE a.nome LIKE '%{$nome}%'
+        ORDER BY a.id;";
+        $produtos = $this->pdo->query($sql);
+        $produtos = $produtos->fetchAll(PDO::FETCH_ASSOC);
+        return $produtos;
+    } 
 }
