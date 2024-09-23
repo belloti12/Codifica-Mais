@@ -9,9 +9,10 @@
 </head>
 <body>
     <header>
-        <nav>
+        <nav class="nav">
             <a href="/">Listagem</a>
-            <a href="produtos/criar">Adicionar</a>
+            <a href="/produtos/criar">Adicionar</a>
+            <a class="nav__config" href="/config"><img  src="\img\config.ico" /></a>
         </nav>
     </header>
     <main class="main">
@@ -19,44 +20,45 @@
             <a class="botao geral" href="produtos/criar">Novo item</a>
             <form class="funcoes__buscar" action="">
                 <label for="">Buscar Item</label>
-                <input type="search" name="id-busca">
+                <input class="input" type="search" name="id-busca">
             </form>
         </div>
         <div class="main__lista">
             <?php
-                // Se não houver produtos, não faz sentido uma busca, e é informado ao usuário que a lista está vazia
+                // Se não houver produtos, não faz sentido uma busca, então é informado ao usuário que a lista está vazia
+                // O array de $produtos vai estar vazio, então o foreach também não ira imprimir nenhum produto
                 if (empty($produtos)) {
                     echo 'Lista vazia';
                 }
 
                 foreach ($produtos as $produto):
             ?>
-                <section class="lista__item">
-                    <div class="item__dados">
-                        <div class="dados__esquerda"> 
-                            <div class="esquerda__info">
-                                <span class="esquerda__id">#<?php echo sprintf('%05d', $produto['id'])?> </span>
-                                <span class="esquerda__categoria" style= <?= "background-color:" . $produto['cor'] ?> > <?= $produto['categoria'] ?></span>
-                            </div>
-                            <span class="esquerda__nome"><?= "{$produto['nome']}" ?></span>
+            <section class="lista__item">
+                <div class="item__dados">
+                    <div class="dados__esquerda"> 
+                        <div class="esquerda__info">
+                            <span class="esquerda__id">#<?php echo sprintf('%05d', $produto['id'])?> </span>
+                            <span class="esquerda__categoria" style= <?= "background-color:" . $produto['cor'] ?> > <?= $produto['categoria'] ?></span>
                         </div>
-                        <div class="dados__direita">
-                            <span class="direita__sku">Sku: <?= "{$produto['sku']}" ?></span>
-                            <span class="direita__quantidade">Quantidade: <?= "{$produto['quantidade']}"?></span>                    
-                        </div>
+                        <span class="esquerda__nome"><?= "{$produto['nome']}" ?></span>
                     </div>
-                    <div class="item__funcoes">
-                        <form class="botao funcoes__editar" action="produtos/editar?id-editar=<?= $produto['id']?>" method="post">
-                            <input type='hidden' name="url" value="<?= $_SERVER['REQUEST_URI'] ?>">
-                            <button class='botao funcoes__botao' type='submit'>Editar</button>
-                        </form>
-                        <form class="botao funcoes__deletar" action="produtos/deletar?id-deletar=<?= $produto['id']?>" method="post">
-                            <input type='hidden' name="url" value="<?= $_SERVER['REQUEST_URI'] ?>">
-                            <button class='botao funcoes__botao' type='submit'>Deletar</button>
-                        </form>
+                    <div class="dados__direita">
+                        <span class="direita__sku">Sku: <?= "{$produto['sku']}" ?></span>
+                        <span class="direita__quantidade">Quantidade: <?= "{$produto['quantidade']}"?></span>                    
                     </div>
-                </section>
-                <br>
+                </div>
+                <div class="item__funcoes">
+                    <form class="botao funcoes__editar" action="produtos/editar?id-editar=<?= $produto['id']?>" method="post">
+                        <input type='hidden' name="url" value="<?= $_SERVER['REQUEST_URI'] ?>">
+                        <button class='botao funcoes__botao' type='submit'>Editar</button>
+                    </form>
+                    <form class="botao funcoes__deletar" action="produtos/deletar?id-deletar=<?= $produto['id']?>" method="post">
+                        <input type='hidden' name="url" value="<?= $_SERVER['REQUEST_URI'] ?>">
+                        <button class='botao funcoes__botao' type='submit'>Deletar</button>
+                    </form>
+                </div>
+            </section>
+            <br>
             <?php endforeach; ?>
         </div>
     </main>

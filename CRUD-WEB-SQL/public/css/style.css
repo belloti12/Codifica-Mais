@@ -18,7 +18,7 @@
 }
 
 /* Para a configuração */
-/* Junto de poder trocar as cores das categorias */
+/* Precisa de JS (eu acho) */
 /* html {
     font-size: 170%;
 } */
@@ -30,16 +30,21 @@ body {
     overflow-x: hidden;
 }
 
-nav {
+.nav {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    padding: 2%;
+    padding: 1.5%;
     background-color: #5C523D;
 }
 
-nav a {
+.nav a {
     color: #C4E253;
+}
+
+.nav__config {
+    position: absolute;
+    right: 1%;
 }
 
 .main {
@@ -77,7 +82,7 @@ nav a {
     font-weight: bold;
 }
 
-input, select {
+.input, .select {
     display: flex;
     flex-grow: 1;
     border-radius: 5px;
@@ -213,4 +218,10 @@ a {
     display: flex;
     flex-direction: column;
     height: 3rem;
+}
+
+.tabela__cor {
+    background: none;
+    padding: 0%;
+    border: none;
 }

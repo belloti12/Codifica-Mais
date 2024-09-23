@@ -3,11 +3,11 @@ USE db_estoque;
 -- Populando tabela de categorias
 INSERT INTO tb_categorias (nome, cor) VALUES
 ('Eletrônicos', '#f8f877'),
-('Eletrodomésticos', 'lightcoral'),
+('Eletrodomésticos', '#f08080'),
 ('Móveis', '#C4A484'),
-('Decoração', 'lightgreen'),
-('Vestuário', 'lightblue'),
-('Outros', 'lightgrey');
+('Decoração', '#90EE90'),
+('Vestuário', '#add8e6'),
+('Outros', '#d3d3d3');
 
 -- Populando tabela de Unidades de Medida
 INSERT INTO tb_unidades_medida (nome) VALUES
