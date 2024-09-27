@@ -12,7 +12,7 @@
         <nav class="nav">
             <a href="/">Listagem</a>
             <a href="/produtos/criar">Adicionar</a>
-            <a class="nav__config" href="/config"><img  src="\img\config.ico" /></a>
+            <a class="nav__config" href="/config"><img class="config__img" src="\img\config.ico" /></a>
         </nav>
     </header>
     <main class="main">
@@ -27,7 +27,7 @@
                 </tr>
                 <?php for ($l = 0; $l < count($nomes); $l += 1): ?>
                 <tr style="background:<?=$cores[$l]?>">
-                    <th><span><?=$nomes[$l]?></span></th>
+                    <th class="tabela__nome"><span><?=$nomes[$l]?></span></th>
                     <?php for ($c = 0; $c < count($paletas); $c += 1): ?>
                     <th><input class="tabela__cor" type="color" name="paleta<?=$c?>-cor<?=$l?>" value="<?=$paletas[$c][$l]?>"></th>
                     <?php endfor; ?>

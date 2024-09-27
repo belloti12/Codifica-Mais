@@ -47,6 +47,11 @@ body {
     right: 1%;
 }
 
+.config__img {
+    height: 2rem;
+    width: auto;
+}
+
 .main {
     display: flex;
     flex-direction: column;
@@ -220,7 +225,12 @@ a {
     height: 3rem;
 }
 
+.tabela__nome {
+    width: 55%;
+}
+
 .tabela__cor {
+    width: 100%;
     background: none;
     padding: 0%;
     border: none;

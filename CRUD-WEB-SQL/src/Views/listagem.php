@@ -12,7 +12,7 @@
         <nav class="nav">
             <a href="/">Listagem</a>
             <a href="/produtos/criar">Adicionar</a>
-            <a class="nav__config" href="/config"><img  src="\img\config.ico" /></a>
+            <a class="nav__config" href="/config"><img class="config__img" src="\img\config.ico" /></a>
         </nav>
     </header>
     <main class="main">
