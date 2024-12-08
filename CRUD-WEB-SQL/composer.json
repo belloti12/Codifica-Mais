@@ -1,0 +1,15 @@
+{
+    "name": "belloti12/idcap-crud",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "João Pedro Belloti Góes",
+            "email": "jpbelloti12@gmail.com"
+        }
+    ],
+    "require": {}
+}
